@@ -1,1 +1,1 @@
-web: flower --settings=celeryconfig
+web: flower --port=$PORT --settings=celeryconfig --db=$DATABASE_URL --persistent=true --basic_auth=$FLOWER_AUTH
