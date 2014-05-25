@@ -1,1 +1,1 @@
-web: flower --setting=celeryconfig
+web: flower --settings=celeryconfig
