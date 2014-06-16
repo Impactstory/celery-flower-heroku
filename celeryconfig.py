@@ -18,23 +18,16 @@ REDIS_CONNECT_RETRY = True
 BROKER_TRANSPORT_OPTIONS = {'fanout_prefix': True}
 BROKER_TRANSPORT_OPTIONS = {'fanout_patterns': True}
 
-CELERY_DEFAULT_QUEUE = 'core_main'
+# added because https://github.com/celery/celery/issues/896
+BROKER_POOL_LIMIT = None
+
+CELERY_DEFAULT_QUEUE = 'core_high'
 CELERY_QUEUES = [
-    Queue('core_main', routing_key='core_main'),
-    Queue('refresh_tiid', routing_key='refresh_tiid'),
-    Queue('provider_run', routing_key='provider_run'),
+    Queue('core_high', routing_key='core_high'),
+    Queue('core_low', routing_key='core_low'),
 ]
 
-BROKER_TRANSPORT_OPTIONS = {
-    'priority_steps': [0,9],
-}
-
 CELERY_CREATE_MISSING_QUEUES = True
-
-CELERY_ROUTES = {
-    'tasks.refresh_tiid': {'queue': 'refresh_tiid'},
-    'tasks.provider_run': {'queue': 'provider_run'},
-}
 
 CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 CELERY_ENABLE_UTC=True
